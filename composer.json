@@ -1,0 +1,11 @@
+{
+  "require": {
+    "symfony/validator": "6.2.7",
+    "twig/twig": "^3.5",
+    "symfony/cache": "^6.2",
+    "doctrine/annotations": "^2.0"
+  },
+  "autoload": {
+    "files": ["php_sources/User.php"]
+  }
+}
