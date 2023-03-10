@@ -9,8 +9,12 @@ $loader = new FilesystemLoader("template");
 $view = new Environment($loader);
 
 $user = new UserClass\User("32", "Shnapdozer", "retel207@gmail.com", "sdgsgseg");
-$comment = new CommentClass\Comment($user, "sdfsdfew3235");
-$comments = [ $comment ];
+$comment = new CommentClass\Comment($user, "Shnapdozer comments");
+
+$user1 = new UserClass\User("12", "Rewood", "retel207@gmail.com", "sdgsgseg");
+$comment1 = new CommentClass\Comment($user1, "Rewood comments");
+
+$comments = [ $comment, $comment1];
 
 if (!empty($_POST)) {
     if (isset($_POST['id'])) {
@@ -49,9 +53,8 @@ if (!empty($_POST)) {
 echo $view->render("index.twig");
 
 foreach($comments as $key => $value)
-    echo $value->getText() . '<br>';
-    if($value->filterByDate(date("Y-m-d H:i:s"))) {
-
+    if($value->filterByDate(new DateTime('2022-01-03'))) {
+        echo $value->getText() . '<br>';
     }
 
 

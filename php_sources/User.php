@@ -1,6 +1,8 @@
 <?php namespace UserClass;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class User {
@@ -43,7 +45,7 @@ class User {
         $this->name = $name;
         $this->email = $email;
         $this->pass = $pass;
-        $this->createDate = date("Y-m-d H:i:s");
+        $this->createDate = new DateTime('now');
     }
 
     public function getCreateDate() {
