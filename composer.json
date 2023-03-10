@@ -6,6 +6,6 @@
     "doctrine/annotations": "^2.0"
   },
   "autoload": {
-    "files": ["php_sources/User.php"]
+    "files": ["php_sources/User.php", "php_sources/Comment.php"]
   }
 }

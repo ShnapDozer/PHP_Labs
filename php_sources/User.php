@@ -4,21 +4,26 @@ require __DIR__ . '/../vendor/autoload.php';
 use Symfony\Component\Validator\Constraints as Assert;
 
 class User {
+    /**
+     * @Assert\NotBlank(
+     *     message = "Поле ID должно быть не пустым",
+     * )
+     */
     protected $id;
 
     /**
      * @Assert\Length(
      * min = 5,
      * max = 25,
-     * minMessage = "Имя должно быть минимум - {{ limit }} символов",
-     * maxMessage = "Имя должно быть максимум - {{ limit }} символов"
+     * minMessage = "Поле имя должно быть минимум - {{ limit }} символов",
+     * maxMessage = "Поле имя должно быть максимум - {{ limit }} символов"
      * )
      */
     protected $name;
 
     /**
      * @Assert\Email(
-     * message = "Email: '{{ value }}' невалиден",
+     * message = "Поле email - невалидно",
      * )
      */
     protected $email;
@@ -26,7 +31,7 @@ class User {
     /**
      * @Assert\Length(
      * min = 5,
-     * minMessage = "Пароль должен быть минимум - {{ limit }} символов",
+     * minMessage = "Поле пароль должено быть минимум - {{ limit }} символов",
      * )
      */
     protected $pass;
