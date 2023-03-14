@@ -40,7 +40,8 @@ class User {
 
     protected $createDate;
 
-    public function __construct($id, $name, $email, $pass) {
+    public function __construct(int $id, string $name, string $email, string $pass) 
+    {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
@@ -48,9 +49,8 @@ class User {
         $this->createDate = new DateTime('now');
     }
 
-    public function getCreateDate() {
+    public function getCreateDate(): Date
+    {
         return $this->createDate;
     }
 }
-
-?>
