@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-WORKDIR /var/www/html
+WORKDIR /var/www/
 COPY . .
 
 RUN apt-get update && apt-get install -y \
@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN composer self-update
-RUN composer dump-autoload
-RUN composer install
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --filename=composer \
+    --install-dir=/usr/local/bin
+
