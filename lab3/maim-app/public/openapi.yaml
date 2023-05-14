@@ -1,0 +1,255 @@
+openapi: "3.0.0"
+info:
+  title: "Выставки"
+  description: "API для управления выставками"
+  version: "1.0.0"
+servers:
+  - url: "http://lab1.local"
+paths:
+
+
+  /exhibition:
+    get:
+      summary: "Получить общий список выставок"
+      operationId: "getExhibitions"
+      tags:
+        - "выставки"
+      responses:
+        '200':
+          description: "Успешный запрос"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Exhibition"
+
+    post:
+      summary: "Создать новую выставку"
+      operationId: "createExhibition"
+      tags:
+        - "выставки"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExhibitionInput_Id"
+      responses:
+        '201':
+          description: "Выставка создана"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exhibition"
+
+
+  /exhibitions/{id}:
+    get:
+      summary: "Получить информацию о выставке по id"
+      operationId: "getExhibitionById"
+      tags:
+        - "выставки"
+        - "id"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "Идентификатор выставки"
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        '200':
+          description: "Успешный запрос"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exhibition"
+        '400':
+          description: Invalid input
+        '404':
+          description: Exhibition not found
+        '500':
+          description: Internal server error
+
+    patch:
+        summary: "Обновить информацию о выставке"
+        operationId: "patchExhibitionById"
+        tags:
+        - "выставки"
+        - "id"
+        parameters:
+          - name: id
+            in: path
+            description: "Идентификатор выставки"
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          description: Данные о выставке, которые необходимо обновить
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExhibitionInput_id'
+        responses:
+          '200':
+            description: "Успешный запрос"
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Exhibition'
+          '400':
+            description: Invalid input
+          '404':
+            description: Exhibition not found
+          '500':
+            description: Internal server error
+
+    delete:
+      summary: "Удалить выставку по id"
+      operationId: "deleteExhibitionById"
+      tags:
+        - "выставки"
+        - "id"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "Идентификатор выставки"
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        '204':
+          description: "Выставка удалена"
+        '400':
+          description: Invalid input
+        '404':
+          description: Exhibition not found
+        '500':
+          description: Internal server error
+        
+
+
+  /exhibition/{theme}:
+    get:
+        summary: "Получить общий список выставок одной темы"
+        operationId: "getExhibitionsSameType"
+        tags:
+          - "выставки"
+          - "theme"
+        parameters:
+        - name: "theme"
+          in: "path"
+          required: true
+          description: "Тема выставки"
+          schema:
+            type: string
+        responses:
+          '200':
+            description: "Успешный запрос"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Exhibition"
+
+    post:
+      summary: "Создать новую выставку определенной темы"
+      operationId: "createExhibitionWithType"
+      tags:
+        - "выставки"
+        - "theme"
+      parameters:
+      - name: "theme"
+        in: "path"
+        required: true
+        description: "Тема выставки"
+        schema:
+          type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExhibitionInput_theme"
+      responses:
+        '201':
+          description: "Выставка создана"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exhibition"
+components:
+  schemas:
+
+    Exhibition:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        theme:
+          type: string
+        description:
+          type: string        
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+      required:
+        - id
+        - name
+        - theme
+        - description
+        - start_date
+        - end_date
+
+    ExhibitionInput_Id:
+      type: object
+      properties:
+        name:
+          type: string
+        theme:
+          type: string
+        description:
+          type: string 
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+      required:
+        - name
+        - theme
+        - description
+        - start_date
+        - end_date
+
+    ExhibitionInput_theme:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string 
+            start_date:
+              type: string
+              format: date
+            end_date:
+              type: string
+              format: date
+          required:
+            - name
+            - description
+            - start_date
+            - end_date
+            
