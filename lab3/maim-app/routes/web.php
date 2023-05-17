@@ -1,31 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExhibitionsController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Exhibitions\Actions\GetExhibitionsAction;
+use App\Exhibitions\Actions\GetExhibitionActionById;
+use App\Exhibitions\Actions\CreateExhibitionAction;
+use App\Exhibitions\Actions\UpdateExhibitionAction;
+use App\Exhibitions\Actions\DeleteExhibitionAction;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ExhibitionsController::class, 'index']);
 
-Route::get('/exhibitions', 'ExhibitionController@index');
-Route::post('/exhibitions', 'ExhibitionController@store');
-Route::get('/exhibitions/{id}', 'ExhibitionController@show');
-Route::put('/exhibitions/{id}', 'ExhibitionController@update');
-Route::patch('/exhibitions/{id}', 'ExhibitionController@update');
-Route::delete('/exhibitions/{id}', 'ExhibitionController@destroy');
-
-Route::get('/exhibitions', [GetExhibitionsAction::class, 'execute']);
-Route::get('/exhibitions/{id}', [GetExhibitionAction::class, 'execute']);
-Route::post('/exhibitions', [CreateExhibitionAction::class, 'execute']);
-Route::put('/exhibitions/{id}', [UpdateExhibitionAction::class, 'execute']);
-Route::delete('/exhibitions/{id}', [DeleteExhibitionAction::class, 'execute']);
+Route::get('/exhibitions/{id}', [ExhibitionsController::class, 'getById']);
+Route::post('/exhibitions', [ExhibitionsController::class, 'create']);
+Route::put('/exhibitions/{id}', [ExhibitionsController::class, 'update']);
+Route::delete('/exhibitions/{id}', [ExhibitionsController::class, 'delete']);

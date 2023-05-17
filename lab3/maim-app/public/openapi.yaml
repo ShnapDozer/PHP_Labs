@@ -9,21 +9,6 @@ paths:
 
 
   /exhibition:
-    get:
-      summary: "Получить общий список выставок"
-      operationId: "getExhibitions"
-      tags:
-        - "выставки"
-      responses:
-        '200':
-          description: "Успешный запрос"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Exhibition"
-
     post:
       summary: "Создать новую выставку"
       operationId: "createExhibition"
