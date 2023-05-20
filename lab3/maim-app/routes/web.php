@@ -10,7 +10,6 @@ use App\Exhibitions\Actions\UpdateExhibitionAction;
 use App\Exhibitions\Actions\DeleteExhibitionAction;
 
 Route::get('/', [ExhibitionsController::class, 'index']);
-
 Route::get('/exhibitions/{id}', [ExhibitionsController::class, 'getById']);
 Route::post('/exhibitions', [ExhibitionsController::class, 'create']);
 Route::put('/exhibitions/{id}', [ExhibitionsController::class, 'update']);

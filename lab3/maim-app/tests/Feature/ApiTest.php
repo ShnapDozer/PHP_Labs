@@ -3,16 +3,24 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\Exhibition;
 
 class ApiTest extends TestCase
 {
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_should_return_an_exhibition_by_id(): void
     {
-        $response = $this->get('/docs/swagger');
+        $response = $this->get("/exhibitions/1");
+        $response->assertOk();
+        $response->assertJsonFragment(['id' => 1]);
+    } 
 
-        $response->assertStatus(200);
-        // $response->assertJsonStructure([
-        //     '*' => ['id', 'name', 'email'],
-        // ]);
+    public function test_should_create_an_exhibition(): void
+    { 
+        $exhibitionData = Exhibition::factory()->raw();
+        $response = $this->post('/exhibitions', $exhibitionData);
+        $response->assertCreated();
+        $this->assertDatabaseHas('exhibitions', $exhibitionData);
     }
 }
+
+    

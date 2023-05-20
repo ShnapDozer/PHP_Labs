@@ -11,8 +11,8 @@ use App\Exhibitions\Actions\CreateExhibitionAction;
 use App\Exhibitions\Actions\UpdateExhibitionAction;
 use App\Exhibitions\Actions\DeleteExhibitionAction;
 
-use App\Exhibitions\Request\UpdateExhibitionRequest;
-use App\Exhibitions\Request\CreateExhibitionRequest;
+use App\Exhibitions\Requests\UpdateExhibitionRequest;
+use App\Exhibitions\Requests\CreateExhibitionRequest;
 
 use App\Exhibitions\Resources\ExhibitionResource;
 
@@ -28,9 +28,9 @@ class ExhibitionsController extends Controller
         return new ExhibitionResource($action->execute($id));
     }
 
-    public function create() 
+    public function create(CreateExhibitionRequest $request, CreateExhibitionAction $action) 
     {
-        return [CreateExhibitionAction::class, 'execute'];
+        return new ExhibitionResource($action->execute($requestst->validated()));
     }
 
     public function update() 
