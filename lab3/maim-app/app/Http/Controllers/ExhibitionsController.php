@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Exhibition;
 
-use App\Exhibitions\Actions\GetExhibitionsAction;
 use App\Exhibitions\Actions\GetExhibitionActionById;
 use App\Exhibitions\Actions\CreateExhibitionAction;
 use App\Exhibitions\Actions\UpdateExhibitionAction;
@@ -18,11 +17,6 @@ use App\Exhibitions\Resources\ExhibitionResource;
 
 class ExhibitionsController extends Controller
 {
-    public function getAll(GetExhibitionsAction $action) 
-    {
-        return new ExhibitionResource($action->execute());
-    }
-
     public function getById(int $id, GetExhibitionActionById $action)
     {
         return new ExhibitionResource($action->execute($id));
@@ -30,18 +24,22 @@ class ExhibitionsController extends Controller
 
     public function create(CreateExhibitionRequest $request, CreateExhibitionAction $action) 
     {
-        return new ExhibitionResource($action->execute($requestst->validated()));
+        return new ExhibitionResource($action->execute($request->validated()));
     }
 
-    public function update() 
+    public function update(int $id, UpdateExhibitionRequest $request, UpdateExhibitionAction $action) 
     {
-        return [UpdateExhibitionAction::class, 'execute'];
+        return new ExhibitionResource($action->execute($id, $request->validated()));
     }
 
-    public function delete() 
+    public function delete(int $id, DeleteExhibitionAction $action) 
     {
-        return [DeleteExhibitionAction::class, 'execute'];
+        return new ExhibitionResource($action->execute($id));
     }
 
-
+    public function index() 
+    {
+        $exhibitions = Exhibition::all();
+        return view('exhibitions.index', compact('exhibitions'));
+    }
 }

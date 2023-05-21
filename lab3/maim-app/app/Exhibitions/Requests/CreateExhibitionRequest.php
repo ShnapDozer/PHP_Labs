@@ -2,7 +2,7 @@
 
 namespace App\Exhibitions\Requests;
 
-use Illuminate\FoundationHttpFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\ValidationRule;
 
 class CreateExhibitionRequest extends FormRequest

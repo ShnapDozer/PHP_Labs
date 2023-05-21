@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Exhibitions\Request;
+namespace App\Exhibitions\Requests;
 
-use Illuminate\FoundationHttpFormRequest;
-use Illuminate\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateExhibitionRequest extends FormRequest
 {
