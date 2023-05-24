@@ -10,6 +10,8 @@ class Exhibition extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'name', 'theme', 'description', 'start_date', 'end_date'];
+  
     public function user(): BelongsTo {
         return $this->belongsTo(Theme::class);
     }

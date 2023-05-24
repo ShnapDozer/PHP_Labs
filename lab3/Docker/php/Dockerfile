@@ -1,5 +1,7 @@
 FROM php:8.2-fpm
 
+
+
 WORKDIR /var/www/
 COPY . .
 
@@ -16,6 +18,19 @@ RUN apt-get update && apt-get install -y \
       docker-php-ext-install zip && \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+
+
+# Setup PHPXDebug
+ARG XDEBUG_VERSION=3.2.0
+ENV XDEBUG_MODE="debug,coverage"
+
+RUN pecl install xdebug-${XDEBUG_VERSION}
+RUN docker-php-ext-enable  xdebug
+
+COPY /Docker/php/40-xdebug.ini $PHP_INI_DIR/conf.d/
+
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- \

@@ -11,10 +11,10 @@ class CreateExhibitionRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'date' => 'required|date',
-            'city' => 'required|string',
-            'artist' => 'required|string',
+            'theme' => 'required|string',
             'description' => 'nullable|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ];
     }
 }

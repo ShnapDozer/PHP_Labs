@@ -21,6 +21,22 @@ class ApiTest extends TestCase
         $response->assertCreated();
         $this->assertDatabaseHas('exhibitions', $exhibitionData);
     }
+
+    public function test_should_update_an_exhibition(): void
+    { 
+        $exhibition = Exhibition::factory()->create();
+        $newData = Exhibition::factory()->raw();
+        $response = $this->put("/exhibitions/{$exhibition->id}", $newData);
+        $response->assertOk();
+        $this->assertDatabaseHas('exhibitions', array_merge(['id' => $exhibition->id], $newData));
+    }
+
+    public function test_should_delete_an_exhibition(): void
+    {
+        $exhibition = Exhibition::factory()->create();
+        $response = $this->delete("/exhibitions/{$exhibition->id}");
+        $this->assertDatabaseMissing('exhibitions', ['id' => $exhibition->id]);
+    }
 }
 
     

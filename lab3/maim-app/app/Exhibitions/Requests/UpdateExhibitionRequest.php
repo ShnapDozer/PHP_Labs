@@ -12,14 +12,14 @@ class UpdateExhibitionRequest extends FormRequest
         $id = (int) $this->route('id');
 
         return [
-            'name' => 'required|string',
-            'date' => 'required|date',
-            'city' => 'required|string',
-            'artist' => 'required|string',
-            'description' => 'nullable|string',
             'id' => [Rule::exists('exhibitions')->where(function ($query) use ($id) {
                 $query->where('id', $id);
             })],
+            'name' => 'required|string',
+            'theme' => 'required|string',
+            'description' => 'nullable|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ];
     }
 }
